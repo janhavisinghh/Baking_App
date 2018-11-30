@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:id="@+id/details_container"
+    android:descendantFocusability="blocksDescendants"
+    android:layout_height="280dp">
+
+<ImageView android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:src="@drawable/yellow_cake"
+    android:id="@+id/main_recipe_thumbnail"
+    android:scaleType="centerCrop"
+    android:focusable="false"
+    android:focusableInTouchMode="false"
+    android:adjustViewBounds="true"/>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#000000"
+        android:alpha="0.3"
+        android:focusable="false"
+        android:focusableInTouchMode="false"
+        android:layout_gravity="bottom"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:id="@+id/recipe_name_tv"
+        android:textSize="25dp"
+        android:text="RECIPE"
+        android:focusable="false"
+        android:textAlignment="textEnd"
+        android:textColor="#ffffff"
+        android:maxLines="2"
+        android:textStyle="bold"
+        android:layout_marginEnd="15dp"
+        android:fitsSystemWindows="true"
+        android:layout_gravity="bottom|end"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/fragment_recipe_maain_servings_1"
+        android:textSize="15dp"
+        android:text="Servings :"
+        android:textAlignment="textEnd"
+        android:textColor="#ffffff"
+        android:maxLines="2"
+        android:focusable="false"
+        android:textStyle="normal"
+        android:layout_marginEnd="25dp"
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="2dp"
+        android:layout_gravity="bottom|end"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:id="@+id/servings_tv"
+        android:textSize="15dp"
+        android:text="5"
+        android:focusable="false"
+        android:textAlignment="textEnd"
+        android:textColor="#ffffff"
+        android:maxLines="2"
+        android:textStyle="normal"
+        android:layout_marginEnd="15dp"
+        android:fitsSystemWindows="true"
+        android:layout_marginBottom="2dp"
+        android:layout_gravity="bottom|end"/>
+
+
+</FrameLayout>
