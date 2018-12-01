@@ -1,12 +1,16 @@
 package com.example.android.bakingapp.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.android.bakingapp.Activity.DetailActivity;
 import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
@@ -15,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailViewHolder> {
-    public List<Ingredients> ingredients;
     public List<Steps> steps;
 
     private Context context;
@@ -23,7 +26,7 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
     private final DetailsAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onItemClick(Steps position);
+        void onItemClick(int position);
     }
 
     public DetailsAdapter(DetailsAdapter.OnItemClickListener listener) {
@@ -58,7 +61,7 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
         notifyDataSetChanged();
     }
 
-    public class DetailViewHolder extends RecyclerView.ViewHolder {
+    public class DetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         private TextView step_name_tv;
         private TextView short_desc_tv;
@@ -76,6 +79,13 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
             step_name_tv.setText("Step " +stepName);
             short_desc_tv.setText(description);
 
+            itemView.setOnClickListener(this);
+
+        }
+
+        @Override
+        public void onClick(View v) {
+            listener.onItemClick(getAdapterPosition());
         }
     }
 }

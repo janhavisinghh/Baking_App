@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.example.android.bakingapp.Adapter.DetailsAdapter;
 import com.example.android.bakingapp.Data.Steps;
@@ -15,29 +16,27 @@ import com.example.android.bakingapp.R;
 import java.util.ArrayList;
 
 public class StepsFragment extends Fragment {
+    private String step_id;
+    private String short_desc;
+    private String description;
+    private String video_url;
+    private String thumbnail_url;
+    private TextView video_thumbnail;
+    private int position;
     public StepsFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
 
     {
-        final View rootView = inflater.inflate(R.layout.detail_list, container, false);
-//        steps = new ArrayList<>();
-//        steps = (ArrayList<Steps>) getArguments().getSerializable("steps");
-//        position = getArguments().getInt("position");
-//
-//        adapter = new DetailsAdapter(new DetailsAdapter.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(Steps position) {
-//            }
-//        });
-//
-//
-//        final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.details_rv);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-//        recyclerView.setHasFixedSize(true);
-//        recyclerView.setAdapter(adapter);
-//        adapter.setSteps(steps);
+        final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+        step_id = (String)getArguments().getSerializable("step_id");
+        short_desc = (String)getArguments().getSerializable("short_desc");
+        description = (String)getArguments().getSerializable("description");
+        video_url = (String)getArguments().getSerializable("video_url");
+        thumbnail_url = (String)getArguments().getSerializable("thumbnail_url");
+        video_thumbnail = (TextView) rootView.findViewById(R.id.step_video);
+        video_thumbnail.setText(step_id);
 
         return rootView;
     }
