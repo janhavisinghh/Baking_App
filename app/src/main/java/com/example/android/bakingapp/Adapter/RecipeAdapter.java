@@ -91,6 +91,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("steps", recipes.get(item).getSteps());
                     bundle.putSerializable("ingredients", recipes.get(item).getIngredients());
+                    bundle.putString("name", name);
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("bundle", bundle);
                     intent.putExtra("position",item);

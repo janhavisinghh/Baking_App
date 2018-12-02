@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
     private RecipeAdapter adapter;
     private static final int SPAN_COUNT = 2;
     private ArrayList<Recipe> recipesList;
-    private static final String KEY_PARCEL_MOVIE_LIST = "recipes_list";
+    private static final String KEY_PARCEL_RECIPE_LIST = "recipes_list";
     private int mPosition = RecyclerView.NO_POSITION;
 
     @Override
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(KEY_PARCEL_MOVIE_LIST, recipesList);
+        outState.putParcelableArrayList(KEY_PARCEL_RECIPE_LIST, recipesList);
         super.onSaveInstanceState(outState);
     }
 

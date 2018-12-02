@@ -20,7 +20,11 @@
         </activity>
         <activity android:name=".Activity.DetailActivity" />
         <activity android:name=".Activity.StepActivity" />
-        <activity android:name=".Activity.IngredientsActivity"></activity>
+        <activity
+            android:name=".Activity.FullscreenActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="@string/title_activity_fullscreen"
+            android:theme="@style/FullscreenTheme"></activity>
     </application>
 
 </manifest>

@@ -6,6 +6,56 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
     </style>
+
+    <style name="DetailTitleStyle">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Headline</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ServingStyle">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.SearchResult.Subtitle
+        </item>
+    </style>
+
+    <style name="SectionHead">
+        <item name="android:layout_marginLeft">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Title</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="ContentRecyclerViewStyle">
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:nestedScrollingEnabled">false</item>
+        <item name="android:scrollbars">none</item>
+    </style>
+
+
+    <style name="DetailDescTextStyle">
+        <item name="android:layout_marginLeft">16dp</item>
+        <item name="android:layout_marginRight">16dp</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:layout_marginBottom">16dp</item>
+        <item name="android:textAppearance">@style/TextAppearance.AppCompat.Medium</item>
+    </style>
+
+    <style name="FullscreenTheme" parent="AppTheme">
+        <item name="android:actionBarStyle">@style/FullscreenActionBarStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:windowBackground">@null</item>
+        <item name="metaButtonBarStyle">?android:attr/buttonBarStyle</item>
+        <item name="metaButtonBarButtonStyle">?android:attr/buttonBarButtonStyle</item>
+    </style>
+
+    <style name="FullscreenActionBarStyle" parent="Widget.AppCompat.ActionBar">
+        <item name="android:background">@color/black_overlay</item>
+    </style>
+
 
 </resources>

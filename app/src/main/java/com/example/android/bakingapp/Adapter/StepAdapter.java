@@ -72,7 +72,7 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         public void bind(final int item, final Steps stepsItem, final DetailsAdapter.OnItemClickListener listener) {
             final String stepName = steps.get(item).getId();
             final String description = steps.get(item).getShortDescription();
-            step_name_tv.setText("Step " +stepName);
+            step_name_tv.setText(stepName);
             short_desc_tv.setText(description);
 
         }
