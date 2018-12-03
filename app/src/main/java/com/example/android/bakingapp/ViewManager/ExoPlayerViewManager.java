@@ -1,4 +1,4 @@
-package com.example.android.bakingapp;
+package com.example.android.bakingapp.ViewManager;
 
 import android.content.Context;
 import android.media.AudioAttributes;

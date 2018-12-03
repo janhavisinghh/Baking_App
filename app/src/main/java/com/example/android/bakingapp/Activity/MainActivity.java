@@ -1,6 +1,7 @@
 package com.example.android.bakingapp.Activity;
 
 import android.content.res.Configuration;
+import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -13,6 +14,7 @@ import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.api.GetDataService;
 import com.example.android.bakingapp.api.RetrofitClientInstance;
+import com.example.android.bakingapp.databinding.ActivityMainBinding;
 
 import java.util.ArrayList;
 
@@ -22,37 +24,37 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
     private RecipeAdapter adapter;
     private static final int SPAN_COUNT = 2;
     private ArrayList<Recipe> recipesList;
     private static final String KEY_PARCEL_RECIPE_LIST = "recipes_list";
     private int mPosition = RecyclerView.NO_POSITION;
+    ActivityMainBinding binding;
+    public static final String KEY_INGREDIENT = "ingredient";
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-
-
-        recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
 
         recipesList = new ArrayList<>();
 
         if(MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
-            recyclerView.setLayoutManager(new LinearLayoutManager(this));
+            binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
         }
         else{
-            recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
+            binding.recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
         }
-        recyclerView.setHasFixedSize(true);
+        binding.recyclerView.setHasFixedSize(true);
         adapter = new RecipeAdapter(new RecipeAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(Recipe position) {
             }
         });
-        recyclerView.setAdapter(adapter);
+        binding.recyclerView.setAdapter(adapter);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 

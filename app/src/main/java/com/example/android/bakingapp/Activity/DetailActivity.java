@@ -1,17 +1,23 @@
 package com.example.android.bakingapp.Activity;
 
 import android.app.ActionBar;
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.Fragment.DetailListFragment;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.Widget.IngredientsWidgetProvider;
+import com.example.android.bakingapp.Widget.ListWidgetService;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
@@ -23,7 +29,6 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
     private int position;
     private static final String KEY_PARCEL_INGREDIENTS_LIST = "ingredients_list";
     private static final String KEY_PARCEL_STEPS_LIST = "steps_list";
-
     private String name;
     private boolean mTwoPane;
 
@@ -37,6 +42,7 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         }
         else mTwoPane=false;
 
+
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
@@ -46,8 +52,13 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         ingredientsList = new ArrayList<Ingredients>();
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
-        stepsList = (ArrayList<Steps>) args.getSerializable("steps");
-        ingredientsList = (ArrayList<Ingredients>) args.getSerializable("ingredients");
+        if(savedInstanceState != null) {
+            stepsList = (ArrayList<Steps>) savedInstanceState.getSerializable(KEY_PARCEL_STEPS_LIST);
+            ingredientsList = (ArrayList<Ingredients>) savedInstanceState.getSerializable(KEY_PARCEL_INGREDIENTS_LIST);
+        }
+        if(savedInstanceState==null){
+            stepsList = (ArrayList<Steps>) args.getSerializable("steps");
+        ingredientsList = (ArrayList<Ingredients>) args.getSerializable("ingredients");}
         position = getIntent().getExtras().getInt("position");
         name = (String) args.getString("name");
 
@@ -91,14 +102,44 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         }
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int index = -1;
-        int itemThatWasClickedId = item.getItemId();
-        if(itemThatWasClickedId== android.R.id.home){
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
+    public void onSaveInstanceState(Bundle currentState) {
+        super.onSaveInstanceState(currentState);
+        currentState.putSerializable(KEY_PARCEL_STEPS_LIST, stepsList);
+        currentState.putSerializable(KEY_PARCEL_INGREDIENTS_LIST, ingredientsList);
+    }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
 
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case R.id.action_save:
+                Toast.makeText(getApplicationContext(),"Saved!", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, ListWidgetService.class);
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("ingredients", ingredientsList);
+                bundle.putString("name", name);
+                bundle.putInt("position",position);
+                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                int[] appWidgetIds = AppWidgetManager.getInstance(getApplication())
+                        .getAppWidgetIds(new ComponentName(getApplication(), ListWidgetService.class));
+                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
+                intent.putExtra("bundle", bundle);
+                sendBroadcast(intent);
+                return true;
+            case android.R.id.home:
+                finish();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 }

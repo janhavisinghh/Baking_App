@@ -2,6 +2,7 @@ package com.example.android.bakingapp.Activity;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.ActionBar;
@@ -11,16 +12,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.example.android.bakingapp.ExoPlayerViewManager;
+import com.example.android.bakingapp.ViewManager.ExoPlayerViewManager;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.databinding.ActivityFullscreenBinding;
 import com.google.android.exoplayer2.ui.PlayerView;
 
 public class FullscreenActivity extends AppCompatActivity {
 
-
     private static final boolean AUTO_HIDE = true;
-
+    ActivityFullscreenBinding binding;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
 
     private static final int UI_ANIMATION_DELAY = 300;
@@ -71,8 +72,7 @@ public class FullscreenActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_fullscreen);
-
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_fullscreen);
         mVisible = true;
 
         mPlayerView = findViewById(R.id.full_player_view);

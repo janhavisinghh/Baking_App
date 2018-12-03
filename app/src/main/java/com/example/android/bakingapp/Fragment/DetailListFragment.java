@@ -16,6 +16,7 @@ import com.example.android.bakingapp.Adapter.IngredientAdapter;
 import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.databinding.DetailListBinding;
 
 import java.util.ArrayList;
 
@@ -29,6 +30,11 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
     private static final String KEY_PARCEL_INGREDIENTS_LIST = "ingredients_list";
     private static final String KEY_PARCEL_STEPS_LIST = "steps_list";
     private TextView name_tv;
+    DetailListBinding binding;
+    ArrayList<Ingredients> recipeIngredientsForWidgets= new ArrayList<>();
+
+
+
 
     public DetailListFragment() {
     }
@@ -61,7 +67,7 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
                              Bundle savedInstanceState)
 
     {final View rootView = inflater.inflate(R.layout.detail_list, container, false);
-
+    binding = DetailListBinding.bind(rootView);
 
 
             steps = new ArrayList<>();
@@ -69,8 +75,7 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
             steps = (ArrayList<Steps>) getArguments().getSerializable("steps");
             ingredientsList = (ArrayList<Ingredients>) getArguments().getSerializable("ingredients");
             name = (String) getArguments().getString("name");
-            name_tv = (TextView) rootView.findViewById(R.id.detail_name_tv);
-            name_tv.setText(name);
+            binding.detailNameTv.setText(name);
 
 
             position = getArguments().getInt("position");
@@ -82,17 +87,17 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
 
             adapter = new DetailsAdapter(this);
             ingredientAdapter = new IngredientAdapter();
-            final RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.details_rv);
-            recyclerView.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-            recyclerView.setHasFixedSize(true);
-            recyclerView.setAdapter(adapter);
+            binding.detailsRv.setLayoutManager(new LinearLayoutManager(binding.detailsRv.getContext()));
+            binding.detailsRv.setHasFixedSize(true);
+            binding.detailsRv.setAdapter(adapter);
             adapter.setSteps(steps);
 
-            final RecyclerView recyclerView1 = (RecyclerView) rootView.findViewById(R.id.ingredients_rv);
-            recyclerView1.setLayoutManager(new LinearLayoutManager(recyclerView.getContext()));
-            recyclerView1.setHasFixedSize(true);
-            recyclerView1.setAdapter(ingredientAdapter);
+            binding.ingredientsRv.setLayoutManager(new LinearLayoutManager(binding.ingredientsRv.getContext()));
+            binding.ingredientsRv.setHasFixedSize(true);
+            binding.ingredientsRv.setAdapter(ingredientAdapter);
             ingredientAdapter.setSteps(ingredientsList);
+
+
 
         return rootView;
 

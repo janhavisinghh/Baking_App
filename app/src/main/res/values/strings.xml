@@ -8,4 +8,9 @@
     <string name="title_activity_fullscreen">FullscreenActivity</string>
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="preference_key_file" translatable="false">com.example.android.bakingapp.preference.key.file</string>
+    <string name="preference_key_save_recipe" translatable="false">com.example.android.bakingapp.key.save.recipe</string>
+    <string name="preference_key_save_recipe_name" translatable="false">com.example.android.bakingapp.key.save.recipe.name</string>
 </resources>

@@ -14,6 +14,7 @@ import com.example.android.bakingapp.Activity.DetailActivity;
 import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.databinding.DetailsCardBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
     public List<Steps> steps;
 
     private Context context;
+    DetailsCardBinding binding;
 
     private final DetailsAdapter.OnItemClickListener listener;
 
@@ -38,11 +40,10 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.details_card, parent, false);
+        binding = DetailsCardBinding.bind(view);
 
         return new DetailsAdapter.DetailViewHolder(view);
     }
-
-
     @Override
     public void onBindViewHolder(final DetailsAdapter.DetailViewHolder holder, int position) {
         holder.bind(position, steps.get(position), listener);
@@ -63,21 +64,15 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
 
     public class DetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView step_name_tv;
-        private TextView short_desc_tv;
-
-
         public DetailViewHolder(View itemView) {
             super(itemView);
-            step_name_tv = itemView.findViewById(R.id.heading_tv);
-            short_desc_tv = itemView.findViewById(R.id.short_description_tv);
         }
 
         public void bind(final int item, final Steps stepsItem, final DetailsAdapter.OnItemClickListener listener) {
             final String stepName = steps.get(item).getId();
             final String description = steps.get(item).getShortDescription();
-            step_name_tv.setText("Step " +stepName);
-            short_desc_tv.setText(description);
+            binding.headingTv.setText("Step " +stepName);
+            binding.shortDescriptionTv.setText(description);
 
             itemView.setOnClickListener(this);
 

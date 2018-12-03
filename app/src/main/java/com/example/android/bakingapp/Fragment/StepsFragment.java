@@ -2,7 +2,7 @@ package com.example.android.bakingapp.Fragment;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.BitmapFactory;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -11,34 +11,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.example.android.bakingapp.Activity.FullscreenActivity;
-import com.example.android.bakingapp.ExoPlayerViewManager;
+import com.example.android.bakingapp.ViewManager.ExoPlayerViewManager;
 import com.example.android.bakingapp.R;
-import com.google.android.exoplayer2.C;
+import com.example.android.bakingapp.databinding.StepFragmentBinding;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.DefaultRenderersFactory;
 
-import com.google.android.exoplayer2.trackselection.AdaptiveTrackSelection;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
 import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.hls.HlsMediaSource;
 import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelection;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.PlaybackControlView;
 import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.BandwidthMeter;
-import com.google.android.exoplayer2.upstream.DefaultBandwidthMeter;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSource;
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
 import static android.view.View.INVISIBLE;
@@ -61,48 +50,49 @@ public class StepsFragment extends Fragment {
     private MediaSource mVideoSource;
     private boolean mExoPlayerFullscreen = false;
     private FrameLayout mFullScreenButton;
-    private ImageView mFullScreenIcon;
     private Dialog mFullScreenDialog;
-    private ImageView default_img;
-
     private int mResumeWindow;
     private long mResumePosition;
-
-    private TextView step_desc;
+    StepFragmentBinding binding;
     public StepsFragment(){}
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
 
     {
-
         if (savedInstanceState != null) {
             mResumeWindow = savedInstanceState.getInt(STATE_RESUME_WINDOW);
             mResumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
             mExoPlayerFullscreen = savedInstanceState.getBoolean(STATE_PLAYER_FULLSCREEN);
         }
-        final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+
+
+            final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+        binding = StepFragmentBinding.bind(rootView);
         step_id = (String)getArguments().getSerializable("step_id");
         short_desc = (String)getArguments().getSerializable("short_desc");
         description = (String)getArguments().getSerializable("description");
         video_url = (String)getArguments().getSerializable("video_url");
         thumbnail_url = (String)getArguments().getSerializable("thumbnail_url");
-        step_desc = (TextView) rootView.findViewById(R.id.step_desc_tv);
-        default_img=(ImageView) rootView.findViewById(R.id.default_mariyam);
-        mExoPlayerView = (SimpleExoPlayerView) rootView.findViewById(R.id.playerView);
         mExoPlayerViewManager = ExoPlayerViewManager.getInstance(video_url, getContext());
+        FrameLayout fullscreenLayout = rootView.findViewById(R.id.exo_fullscreen_button);
 
+        if(StepsFragment.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
         if(video_url.equals("")){
-            mExoPlayerView.setVisibility(INVISIBLE);
-            default_img.setVisibility(View.VISIBLE);
+            binding.playerView.setVisibility(INVISIBLE);
+            binding.defaultMariyam.setVisibility(View.VISIBLE);
 
         }
         else{
-            mExoPlayerView.setVisibility(View.VISIBLE);
-            default_img.setVisibility(View.INVISIBLE);
-        initializePlayer(Uri.parse(video_url));}
+            binding.playerView.setVisibility(View.VISIBLE);
+            binding.defaultMariyam.setVisibility(View.INVISIBLE);
+        initializePlayer(Uri.parse(video_url));}}
+        else{
+            Intent intent = new Intent(getActivity(), FullscreenActivity.class);
+            intent.putExtra(KEY_VIDEO_URL_FULLSCREEN, video_url);
+            startActivity(intent);
+        }
 
-        FrameLayout fullscreenLayout = rootView.findViewById(R.id.exo_fullscreen_button);
         fullscreenLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,7 +103,7 @@ public class StepsFragment extends Fragment {
         });
 
 
-        step_desc.setText(description);
+        binding.stepDescTv.setText(description);
 
 
 
@@ -125,8 +115,7 @@ public class StepsFragment extends Fragment {
             LoadControl loadControl = new DefaultLoadControl();
 
             simpleExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(),trackSelector,loadControl);
-            mExoPlayerView.setPlayer(simpleExoPlayer);
-
+            binding.playerView.setPlayer(simpleExoPlayer);
             String userAgent = Util.getUserAgent(getContext(), "Baking App");
             MediaSource mediaSource = new ExtractorMediaSource(parse, new DefaultDataSourceFactory(
                     getContext(), userAgent), new DefaultExtractorsFactory(), null, null);
@@ -141,7 +130,6 @@ public class StepsFragment extends Fragment {
         simpleExoPlayer.release();
         simpleExoPlayer = null;}
     }
-
     @Override
     public void onDestroy() {
         super.onDestroy();

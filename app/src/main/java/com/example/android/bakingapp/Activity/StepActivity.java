@@ -1,6 +1,7 @@
 package com.example.android.bakingapp.Activity;
 
 import android.content.Intent;
+import android.databinding.DataBindingUtil;
 import android.net.Uri;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -12,6 +13,7 @@ import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.Fragment.DetailListFragment;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.databinding.ActivityStepBinding;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayerFactory;
@@ -39,13 +41,15 @@ public class StepActivity extends AppCompatActivity {
     private String video_url;
     private String thumbnail_url;
     private int position;
+    ActivityStepBinding binding;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_step);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_step);
+
 
         if(getSupportActionBar()!=null){
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);

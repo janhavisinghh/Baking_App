@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.Activity.DetailActivity;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.databinding.RecipeCardBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +21,7 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     public List<Recipe> recipes = new ArrayList<Recipe>();
     private Context context;
+    RecipeCardBinding binding;
     private static final List<Integer> recipe_thumbnails  = new ArrayList<Integer>() {{
         add(R.drawable.nutella_brownie_);
         add(R.drawable.brownie);
@@ -42,6 +44,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         context = parent.getContext();
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recipe_card, parent, false);
+        binding = RecipeCardBinding.bind(view);
 
         return new RecipeViewHolder(view);
     }
@@ -66,26 +69,20 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-        final ImageView imageView;
-        private TextView name_tv;
-        private TextView servings_tv;
 
 
         public RecipeViewHolder(View itemView) {
             super(itemView);
-            imageView = itemView.findViewById(R.id.main_recipe_thumbnail);
-            servings_tv = itemView.findViewById(R.id.servings_tv);
-            name_tv = itemView.findViewById(R.id.recipe_name_tv);
         }
 
         public void bind(final int item, final Recipe recipeItem, final OnItemClickListener listener) {
             final String name = recipes.get(item).getName();
             final String servings = recipes.get(item).getServings();
 
-            name_tv.setText(name);
-            servings_tv.setText(servings);
-            imageView.setImageResource(recipe_thumbnails.get(item));
-            imageView.setOnClickListener(new View.OnClickListener() {
+            binding.recipeNameTv.setText(name);
+            binding.servingsTv.setText(servings);
+            binding.mainRecipeThumbnail.setImageResource(recipe_thumbnails.get(item));
+            binding.mainRecipeThumbnail.setOnClickListener(new View.OnClickListener() {
                 @Override public void onClick(View v) {
                     listener.onItemClick(recipeItem);
                     Bundle bundle = new Bundle();
