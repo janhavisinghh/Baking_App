@@ -2,6 +2,9 @@ package com.example.android.bakingapp.Activity;
 
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
@@ -11,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.android.bakingapp.Adapter.RecipeAdapter;
 import com.example.android.bakingapp.Data.Recipe;
+import com.example.android.bakingapp.IdlingResource.RecipesIdlingResource;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.api.GetDataService;
 import com.example.android.bakingapp.api.RetrofitClientInstance;
@@ -31,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private int mPosition = RecyclerView.NO_POSITION;
     ActivityMainBinding binding;
     public static final String KEY_INGREDIENT = "ingredient";
+    RecipesIdlingResource idlingResource;
 
 
 
@@ -38,6 +43,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+
+        if(idlingResource!=null)
+            idlingResource.setIdleState(false);
 
 
         recipesList = new ArrayList<>();
@@ -55,6 +63,9 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         binding.recyclerView.setAdapter(adapter);
+        getIdlingResource();
+        if(idlingResource!=null)
+            idlingResource.setIdleState(false);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
@@ -67,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
             {
                 recipesList = response.body();
                 adapter.setRecipes(recipesList);
+                if(idlingResource!=null)
+                    idlingResource.setIdleState(true);
             }
 
             @Override
@@ -75,12 +88,22 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(KEY_PARCEL_RECIPE_LIST, recipesList);
         super.onSaveInstanceState(outState);
+    }
+    @VisibleForTesting
+    @NonNull
+    public IdlingResource getIdlingResource() {
+        if (idlingResource == null) {
+            idlingResource = new RecipesIdlingResource();
+        }
+        return idlingResource;
     }
 
 }

@@ -18,16 +18,14 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Activity.DetailActivity" />
+        <activity android:name=".Activity.DetailActivity" >
+        </activity>
         <activity android:name=".Activity.StepActivity" />
         <activity
             android:name=".Activity.FullscreenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_fullscreen"
             android:theme="@style/FullscreenTheme" />
-
-        <service android:name="com.example.android.bakingapp.Widget.ListWidgetService"
-            android:permission="android.permission.BIND_REMOTEVIEWS"/>
 
         <receiver android:name=".Widget.IngredientsWidgetProvider">
             <intent-filter>

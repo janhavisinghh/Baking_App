@@ -1,14 +1,15 @@
 package com.example.android.bakingapp.Activity;
 
-import android.app.ActionBar;
+import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
-import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.android.bakingapp.Data.Ingredients;
@@ -16,10 +17,6 @@ import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.Fragment.DetailListFragment;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
-import com.example.android.bakingapp.Widget.IngredientsWidgetProvider;
-import com.example.android.bakingapp.Widget.ListWidgetService;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 
 import java.util.ArrayList;
 
@@ -31,6 +28,10 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
     private static final String KEY_PARCEL_STEPS_LIST = "steps_list";
     private String name;
     private boolean mTwoPane;
+    public static final String SHARED_PREFS = "prefs";
+    public static final String KEY_BUTTON_TEXT = "keyButtonText";
+    private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
+
 
 
     @Override
@@ -75,6 +76,7 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         fragmentManager.beginTransaction()
                 .add(R.id.recipes_details_list_fragment, detailListFragment)
                 .commit();
+
     }
 
     @Override
@@ -122,18 +124,8 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_save:
-                Toast.makeText(getApplicationContext(),"Saved!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, IngredientsWidgetProvider.class);
-//                Bundle bundle = new Bundle();
-//                bundle.putSerializable("ingredients", ingredientsList);
-//                bundle.putString("name", name);
-//                bundle.putInt("position",position);
-                intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
-                int[] appWidgetIds = AppWidgetManager.getInstance(getApplication())
-                        .getAppWidgetIds(new ComponentName(getApplication(), IngredientsWidgetProvider.class));
-                intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-//                intent.putExtra("bundle", bundle);
-                sendBroadcast(intent);
+
+
                 return true;
             case android.R.id.home:
                 finish();
