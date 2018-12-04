@@ -96,6 +96,7 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         bundle.putSerializable("video_url", stepsList.get(position).getVideoURL());
         bundle.putSerializable("thumbnail_url", stepsList.get(position).getThumbnailURL());
         bundle.putSerializable("stepsList", stepsList);
+        bundle.putBoolean("mtwoPane", mTwoPane);
         bundle.putInt("position", position);
 
         if(mTwoPane) {

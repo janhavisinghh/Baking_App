@@ -24,6 +24,7 @@ public class StepActivity extends AppCompatActivity {
     private int position;
     ActivityStepBinding binding;
     private ArrayList<Steps> steps;
+    private Boolean mTwoPane;
 
 
     @Override
@@ -46,6 +47,7 @@ public class StepActivity extends AppCompatActivity {
         position = args.getInt("position");
         thumbnail_url = (String)args.getSerializable("thumbnail_url");
         steps = (ArrayList<Steps>) args.getSerializable("stepsList");
+        mTwoPane = args.getBoolean("mtwoPane");
         StepsFragment stepsFragment = new StepsFragment();
 
         setTitle(short_desc);
@@ -61,6 +63,7 @@ public class StepActivity extends AppCompatActivity {
         bundle.putSerializable("thumbnail_url", thumbnail_url);
         bundle.putInt("position", position);
         bundle.putSerializable("stepsList", steps);
+        bundle.putBoolean("mtwoPane", mTwoPane);
         stepsFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .add(R.id.step_activity,stepsFragment)

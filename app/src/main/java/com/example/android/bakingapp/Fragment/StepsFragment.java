@@ -46,6 +46,7 @@ public class StepsFragment extends Fragment {
     private String thumbnail_url;
     private ArrayList<Steps> stepsList;
     private int position;
+    private Boolean mTwopane;
 
     public ExoPlayerViewManager mExoPlayerViewManager;
     private final String STATE_RESUME_WINDOW = "resumeWindow";
@@ -73,8 +74,6 @@ public class StepsFragment extends Fragment {
             mResumePosition = savedInstanceState.getLong(STATE_RESUME_POSITION);
             mExoPlayerFullscreen = savedInstanceState.getBoolean(STATE_PLAYER_FULLSCREEN);
         }
-
-
         final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
         stepsList=new ArrayList<>();
         binding = StepFragmentBinding.bind(rootView);
@@ -84,21 +83,25 @@ public class StepsFragment extends Fragment {
         video_url = (String)getArguments().getSerializable("video_url");
         thumbnail_url = (String)getArguments().getSerializable("thumbnail_url");
         stepsList = (ArrayList<Steps>) getArguments().getSerializable("stepsList");
+        mTwopane = getArguments().getBoolean("mtwoPane");
         position =  getArguments().getInt("position");
         mExoPlayerViewManager = ExoPlayerViewManager.getInstance(video_url, getContext());
         FrameLayout fullscreenLayout = rootView.findViewById(R.id.exo_fullscreen_button);
 
-        if(StepsFragment.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        if(StepsFragment.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT|| mTwopane==true)
+        {
         if(video_url.equals("")){
             binding.playerView.setVisibility(INVISIBLE);
             binding.defaultMariyam.setVisibility(View.VISIBLE);
-
         }
         else{
             binding.playerView.setVisibility(View.VISIBLE);
             binding.defaultMariyam.setVisibility(View.INVISIBLE);
-        initializePlayer(Uri.parse(video_url));}}
-        else{
+            initializePlayer(Uri.parse(video_url));
+            }
+        }
+        else
+         {
             Intent intent = new Intent(getActivity(), FullscreenActivity.class);
             intent.putExtra(KEY_VIDEO_URL_FULLSCREEN, video_url);
             startActivity(intent);
