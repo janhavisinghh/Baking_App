@@ -9,8 +9,11 @@
     <string name="dummy_button">Dummy Button</string>
     <string name="dummy_content">DUMMY\nCONTENT</string>
     <string name="appwidget_text">EXAMPLE</string>
+    <string name="detail_quantity_tv">2 Spoons</string>
+    <string name="detail_ingredient_tv">Sugar</string>
+    <string name="detail_name_tv">Recipe Name</string>
+    <string name="detail_name_tv_text">Nutella Pie</string>
     <string name="add_widget">Add widget</string>
-    <string name="preference_key_file" translatable="false">com.example.android.bakingapp.preference.key.file</string>
-    <string name="preference_key_save_recipe" translatable="false">com.example.android.bakingapp.key.save.recipe</string>
-    <string name="preference_key_save_recipe_name" translatable="false">com.example.android.bakingapp.key.save.recipe.name</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="Steps">Steps</string>
 </resources>

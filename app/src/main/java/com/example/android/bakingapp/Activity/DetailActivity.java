@@ -2,6 +2,7 @@ package com.example.android.bakingapp.Activity;
 
 import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.support.v4.app.FragmentManager;
@@ -13,12 +14,19 @@ import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.android.bakingapp.Data.Ingredients;
+import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.Fragment.DetailListFragment;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.Widget.IngredientsWidgetProvider;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
+
+import javax.xml.transform.Result;
+
+import static com.example.android.bakingapp.Adapter.RecipeAdapter.MY_PREFS;
 
 public class DetailActivity extends AppCompatActivity implements DetailListFragment.OnStepClickListener {
     private ArrayList<Steps> stepsList;
@@ -124,8 +132,14 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_save:
-
-
+                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+                    Gson gson = new Gson();
+                    Recipe recipe = gson.fromJson(sharedPreferences.getString("result",null), Recipe.class);
+                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+                    Bundle bundle = new Bundle();
+                    int appWidgetId = bundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+                    IngredientsWidgetProvider.updateAppWidget(getApplicationContext(),appWidgetManager,appWidgetId,recipe.getName(), recipe.getIngredients());
+                    Toast.makeText(getApplicationContext(), recipe.getName() +" Added!", Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
                 finish();

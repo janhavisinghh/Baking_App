@@ -2,6 +2,7 @@ package com.example.android.bakingapp.Adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -14,6 +15,7 @@ import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.Activity.DetailActivity;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.RecipeCardBinding;
+import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +23,9 @@ import java.util.List;
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
     public List<Recipe> recipes = new ArrayList<Recipe>();
     private Context context;
+    private SharedPreferences sharedPreferences;
     RecipeCardBinding binding;
+    public static final String MY_PREFS = "MyPrefs";
     private static final List<Integer> recipe_thumbnails  = new ArrayList<Integer>() {{
         add(R.drawable.nutella_brownie_);
         add(R.drawable.brownie);
@@ -45,6 +49,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.recipe_card, parent, false);
         binding = RecipeCardBinding.bind(view);
+        sharedPreferences = context.getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+
 
         return new RecipeViewHolder(view);
     }
@@ -92,6 +98,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("bundle", bundle);
                     intent.putExtra("position",item);
+                    Gson gson = new Gson();
+                    String resultJson = gson.toJson(recipes.get(item));
+                    sharedPreferences.edit().putString("result", resultJson).apply();
                     context.startActivity(intent);
 
                 }

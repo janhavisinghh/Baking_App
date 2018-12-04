@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
-    android:layout_marginTop="8dp"
+    android:layout_marginBottom="@dimen/widget_margin"
+    android:layout_marginTop="@dimen/widget_margin"
     android:orientation="horizontal">
 
     <ImageView
@@ -12,24 +12,20 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/customborder" />
-    <ImageView
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:src="@drawable/shopping_cart"/>
 
     <TextView
         android:id="@+id/detail_quantity_tv"
         style="@style/MeasureTextStyle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/detail_ingredient_tv"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="2 spoons" />
+        tools:text="@string/detail_quantity_tv" />
     <TextView
         android:id="@+id/detail_ingredient_tv"
         style="@style/IngredientListTextStyle"
-        android:layout_width="0dp"
+        android:layout_width="@dimen/detail_ingredient_tv"
         android:layout_height="wrap_content"
         android:layout_weight="3"
-        tools:text="Sugar" />
+        tools:text="@string/detail_ingredient_tv" />
 
 </LinearLayout>

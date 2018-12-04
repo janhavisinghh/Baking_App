@@ -27,18 +27,18 @@
             style="@style/DetailTitleStyle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="Recipe Name"
+            android:text="@string/detail_name_tv"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="Nutella Pie" />
+            tools:text="@string/detail_name_tv_text" />
 
 
         <ImageView
             android:id="@+id/ingredient_icon_iv"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="@dimen/ingredient_icon_iv"
+            android:layout_height="@dimen/ingredient_icon_iv"
+            android:layout_marginTop="@dimen/ingredient_icon_iv_mt"
             android:src="@drawable/shopping_cart"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/detail_name_tv" />
@@ -48,7 +48,7 @@
             style="@style/SectionHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Ingredients"
+            android:text="@string/ingredients"
             app:layout_constraintBottom_toTopOf="@+id/ingredient_icon_iv"
             app:layout_constraintStart_toEndOf="@+id/ingredient_icon_iv"
             app:layout_constraintTop_toBottomOf="@+id/ingredient_icon_iv" />
@@ -75,7 +75,7 @@
             style="@style/SectionHead"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Steps"
+            android:text="@string/Steps"
             app:layout_constraintBottom_toTopOf="@+id/step_icon_iv"
             app:layout_constraintStart_toEndOf="@+id/step_icon_iv"
             app:layout_constraintTop_toBottomOf="@+id/step_icon_iv" />
