@@ -85,6 +85,8 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         bundle.putSerializable("description", stepsList.get(position).getDescription());
         bundle.putSerializable("video_url", stepsList.get(position).getVideoURL());
         bundle.putSerializable("thumbnail_url", stepsList.get(position).getThumbnailURL());
+        bundle.putSerializable("stepsList", stepsList);
+        bundle.putInt("position", position);
 
         if(mTwoPane) {
             StepsFragment stepsFragment = new StepsFragment();
@@ -121,16 +123,16 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         switch (itemId) {
             case R.id.action_save:
                 Toast.makeText(getApplicationContext(),"Saved!", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, ListWidgetService.class);
-                Bundle bundle = new Bundle();
-                bundle.putSerializable("ingredients", ingredientsList);
-                bundle.putString("name", name);
-                bundle.putInt("position",position);
+                Intent intent = new Intent(this, IngredientsWidgetProvider.class);
+//                Bundle bundle = new Bundle();
+//                bundle.putSerializable("ingredients", ingredientsList);
+//                bundle.putString("name", name);
+//                bundle.putInt("position",position);
                 intent.setAction(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
                 int[] appWidgetIds = AppWidgetManager.getInstance(getApplication())
-                        .getAppWidgetIds(new ComponentName(getApplication(), ListWidgetService.class));
+                        .getAppWidgetIds(new ComponentName(getApplication(), IngredientsWidgetProvider.class));
                 intent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_IDS, appWidgetIds);
-                intent.putExtra("bundle", bundle);
+//                intent.putExtra("bundle", bundle);
                 sendBroadcast(intent);
                 return true;
             case android.R.id.home:

@@ -18,6 +18,10 @@ import java.util.List;
 
 public class ListWidgetService extends RemoteViewsService{
 
+    public static final String ACTION_ADD_INGREDIENTS =
+            "com.example.android.mygarden.action.add_ingredients";
+
+
 
     @Override
     public RemoteViewsFactory onGetViewFactory(Intent intent) {

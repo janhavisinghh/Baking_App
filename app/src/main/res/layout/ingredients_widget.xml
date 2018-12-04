@@ -13,7 +13,7 @@ android:padding="@dimen/widget_margin">
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <TextViewshow_ingredient
+    <TextView
         android:id="@+id/recipe_name_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

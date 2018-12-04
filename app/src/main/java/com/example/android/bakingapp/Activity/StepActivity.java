@@ -7,31 +7,12 @@ import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
-import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
-import com.example.android.bakingapp.Fragment.DetailListFragment;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.ActivityStepBinding;
-import com.google.android.exoplayer2.DefaultLoadControl;
-import com.google.android.exoplayer2.ExoPlaybackException;
-import com.google.android.exoplayer2.ExoPlayerFactory;
-import com.google.android.exoplayer2.LoadControl;
-import com.google.android.exoplayer2.Renderer;
-import com.google.android.exoplayer2.SimpleExoPlayer;
-import com.google.android.exoplayer2.extractor.DefaultExtractorsFactory;
-import com.google.android.exoplayer2.source.ExtractorMediaSource;
-import com.google.android.exoplayer2.source.MediaSource;
-import com.google.android.exoplayer2.source.TrackGroupArray;
-import com.google.android.exoplayer2.trackselection.DefaultTrackSelector;
-import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
-import com.google.android.exoplayer2.trackselection.TrackSelector;
-import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
-import com.google.android.exoplayer2.upstream.Allocator;
-import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
-import com.google.android.exoplayer2.util.Util;
-
 import java.util.ArrayList;
 
 public class StepActivity extends AppCompatActivity {
@@ -42,7 +23,7 @@ public class StepActivity extends AppCompatActivity {
     private String thumbnail_url;
     private int position;
     ActivityStepBinding binding;
-
+    private ArrayList<Steps> steps;
 
 
     @Override
@@ -62,8 +43,9 @@ public class StepActivity extends AppCompatActivity {
         short_desc = (String)args.getSerializable("short_desc");
         description = (String)args.getSerializable("description");
         video_url = (String)args.getSerializable("video_url");
-        position = (int)args.getInt("position");
+        position = args.getInt("position");
         thumbnail_url = (String)args.getSerializable("thumbnail_url");
+        steps = (ArrayList<Steps>) args.getSerializable("stepsList");
         StepsFragment stepsFragment = new StepsFragment();
 
         setTitle(short_desc);
@@ -77,10 +59,14 @@ public class StepActivity extends AppCompatActivity {
         bundle.putSerializable("description", description);
         bundle.putSerializable("video_url", video_url);
         bundle.putSerializable("thumbnail_url", thumbnail_url);
+        bundle.putInt("position", position);
+        bundle.putSerializable("stepsList", steps);
         stepsFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
                 .add(R.id.step_activity,stepsFragment)
                 .commit();
+
+
 
     }
 

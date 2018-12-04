@@ -1,18 +1,21 @@
 package com.example.android.bakingapp.Fragment;
 
 import android.app.Dialog;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import com.example.android.bakingapp.Activity.FullscreenActivity;
+import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.ViewManager.ExoPlayerViewManager;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.StepFragmentBinding;
@@ -30,6 +33,8 @@ import com.google.android.exoplayer2.ui.SimpleExoPlayerView;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
 
+import java.util.ArrayList;
+
 import static android.view.View.INVISIBLE;
 
 
@@ -39,6 +44,9 @@ public class StepsFragment extends Fragment {
     private String description;
     private String video_url;
     private String thumbnail_url;
+    private ArrayList<Steps> stepsList;
+    private int position;
+
     public ExoPlayerViewManager mExoPlayerViewManager;
     private final String STATE_RESUME_WINDOW = "resumeWindow";
     private final String STATE_RESUME_POSITION = "resumePosition";
@@ -67,13 +75,16 @@ public class StepsFragment extends Fragment {
         }
 
 
-            final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.step_fragment, container, false);
+        stepsList=new ArrayList<>();
         binding = StepFragmentBinding.bind(rootView);
         step_id = (String)getArguments().getSerializable("step_id");
         short_desc = (String)getArguments().getSerializable("short_desc");
         description = (String)getArguments().getSerializable("description");
         video_url = (String)getArguments().getSerializable("video_url");
         thumbnail_url = (String)getArguments().getSerializable("thumbnail_url");
+        stepsList = (ArrayList<Steps>) getArguments().getSerializable("stepsList");
+        position =  getArguments().getInt("position");
         mExoPlayerViewManager = ExoPlayerViewManager.getInstance(video_url, getContext());
         FrameLayout fullscreenLayout = rootView.findViewById(R.id.exo_fullscreen_button);
 
@@ -104,9 +115,49 @@ public class StepsFragment extends Fragment {
 
 
         binding.stepDescTv.setText(description);
+        binding.prevButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(position>0)
+                    position--;
+                else
+                    position = stepsList.size()-1;
 
+                binding.stepDescTv.setText(stepsList.get(position).getDescription());
+                onDestroy();
+                if(stepsList.get(position).getVideoURL().equals("")){
+                    binding.playerView.setVisibility(INVISIBLE);
+                    binding.defaultMariyam.setVisibility(View.VISIBLE);
+                    }
+                else{
+                    binding.playerView.setVisibility(View.VISIBLE);
+                    binding.defaultMariyam.setVisibility(View.INVISIBLE);
+                    initializePlayer(Uri.parse(stepsList.get(position).getVideoURL()));
+                }
 
+    }
+        });
+        binding.nextButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(position<stepsList.size()-1)
+                    position ++;
+                else
+                    position = 0;
 
+                binding.stepDescTv.setText(stepsList.get(position).getDescription());
+                onDestroy();
+                if(stepsList.get(position).getVideoURL().equals("")){
+                    binding.playerView.setVisibility(INVISIBLE);
+                    binding.defaultMariyam.setVisibility(View.VISIBLE);
+                }
+                else{
+                    binding.playerView.setVisibility(View.VISIBLE);
+                    binding.defaultMariyam.setVisibility(View.INVISIBLE);
+                    initializePlayer(Uri.parse(stepsList.get(position).getVideoURL()));
+                }
+            }
+        });
         return rootView;
     }
     private void initializePlayer(Uri parse) {
@@ -140,14 +191,6 @@ public class StepsFragment extends Fragment {
     public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
     }
-
-
-
-
-
-
-
-
 
 
 }

@@ -16,6 +16,9 @@ import com.example.android.bakingapp.R;
 
 public class IngredientsWidgetProvider extends AppWidgetProvider {
 
+    public static final String EXTRA_INGREDIENTS = "com.example.android.bakingapp.extra.ingredients";
+
+
 
     static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                 int appWidgetId, int position, String recipeName) {
