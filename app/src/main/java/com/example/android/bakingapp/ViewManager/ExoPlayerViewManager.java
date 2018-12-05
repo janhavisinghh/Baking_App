@@ -8,7 +8,9 @@ import android.net.Uri;
 import android.os.Build;
 import android.view.SurfaceView;
 
+import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
+import com.google.android.exoplayer2.LoadControl;
 import com.google.android.exoplayer2.Player;
 import com.google.android.exoplayer2.SimpleExoPlayer;
 import com.google.android.exoplayer2.source.ExtractorMediaSource;
@@ -81,8 +83,8 @@ public class ExoPlayerViewManager {
                     new AdaptiveTrackSelection.Factory(bandwidthMeter);
             TrackSelector trackSelector =
                     new DefaultTrackSelector(videoTrackSelectionFactory);
-
             mPlayer = ExoPlayerFactory.newSimpleInstance(mContext, trackSelector);
+
 
             DefaultBandwidthMeter defaultBandwidthMeter = new DefaultBandwidthMeter();
 

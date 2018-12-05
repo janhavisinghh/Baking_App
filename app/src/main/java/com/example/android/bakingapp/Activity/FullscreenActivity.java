@@ -89,6 +89,7 @@ public class FullscreenActivity extends AppCompatActivity {
         Intent intent = getIntent();
         if (intent != null && intent.hasExtra(StepsFragment.KEY_VIDEO_URL_FULLSCREEN)) {
             mVideoUrl = intent.getStringExtra(StepsFragment.KEY_VIDEO_URL_FULLSCREEN);
+            Bundle onsavedstate = intent.getBundleExtra("saved_state");
         }
         mExoPlayerViewManager = ExoPlayerViewManager.getInstance(mVideoUrl, this);
         mExoPlayerViewManager.prepareExoPlayer(mPlayerView);

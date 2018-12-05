@@ -85,7 +85,11 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
             ingredientsList = (ArrayList<Ingredients>) savedInstanceState.getSerializable(KEY_PARCEL_INGREDIENTS_LIST);
             }
 
-            adapter = new DetailsAdapter(this);
+
+
+
+
+        adapter = new DetailsAdapter(this);
             ingredientAdapter = new IngredientAdapter();
             binding.detailsRv.setLayoutManager(new LinearLayoutManager(binding.detailsRv.getContext()));
             binding.detailsRv.setHasFixedSize(true);
