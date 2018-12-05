@@ -66,7 +66,7 @@ public class StepsFragment extends Fragment {
     private final String STATE_RESUME_WINDOW = "resumeWindow";
     private final String STATE_RESUME_POSITION = "resumePosition";
     public static final String KEY_VIDEO_URL_FULLSCREEN = "video_url_fullscreen";
-    private final String STATE_PLAYER_FULLSCREEN = "playerFullscreen";
+    private final String KEY_POSITION = "position";
     public static final String MEDIA_POS = "MEDIA_POSITION";
 
     private SimpleExoPlayer simpleExoPlayer;
@@ -97,7 +97,10 @@ public class StepsFragment extends Fragment {
         stepsList = (ArrayList<Steps>) getArguments().getSerializable("stepsList");
         mTwopane = getArguments().getBoolean("mtwoPane");
         position = getArguments().getInt("position");
-
+        if(savedInstanceState!=null) {
+            position = (Integer) savedInstanceState.getSerializable(KEY_POSITION);
+            video_url = stepsList.get(position).getVideoURL();
+        }
 
 
         fullscreenLayout = rootView.findViewById(R.id.exo_fullscreen_button);
@@ -120,7 +123,7 @@ public class StepsFragment extends Fragment {
             description = (String) savedInstanceState.getSerializable(KEY_DESCRIPTION);
         }
         else
-        binding.stepDescTv.setText(description);
+            binding.stepDescTv.setText(description);
 
         binding.prevButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -131,7 +134,7 @@ public class StepsFragment extends Fragment {
                     position = stepsList.size() - 1;
 
                 binding.stepDescTv.setText(stepsList.get(position).getDescription());
-                onStop();
+                onDestroyView();
                 if (stepsList.get(position).getVideoURL().equals("")) {
                     binding.playerView.setVisibility(INVISIBLE);
                     binding.defaultMariyam.setVisibility(View.VISIBLE);
@@ -152,7 +155,7 @@ public class StepsFragment extends Fragment {
                     position = 0;
 
                 binding.stepDescTv.setText(stepsList.get(position).getDescription());
-                onStop();
+                onDestroyView();
                 if (stepsList.get(position).getVideoURL().equals("")) {
                     binding.playerView.setVisibility(INVISIBLE);
                     binding.defaultMariyam.setVisibility(View.VISIBLE);
@@ -220,6 +223,7 @@ public class StepsFragment extends Fragment {
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putSerializable(KEY_DESCRIPTION, description);
+        currentState.putSerializable(KEY_POSITION, position);
     }
 
 }
