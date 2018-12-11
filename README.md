@@ -23,5 +23,13 @@ The details screen in tablet view:<br>
 You can click on the menu item at the top right corner of the details screen to add the ingredients in your homescreen widgets.<br>
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/6.jpg" width="250">
 
+### Skills Demonstrated: 
+
+- Use MediaPlayer/Exoplayer to display videos.
+- Handle error cases in Android.
+- Add a widget to your app experience.
+- Leverage a third-party library in your app.
+- Use Fragments to create a responsive design that works on phones and tablets.
+
 
 
