@@ -53,6 +53,12 @@ public class StepsFragment extends Fragment {
     public StepsFragment() {
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -139,6 +145,9 @@ public class StepsFragment extends Fragment {
         return rootView;
     }
 
+    /**
+     * @param isVisibleToUser
+     */
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
         super.setUserVisibleHint(isVisibleToUser);
@@ -152,6 +161,9 @@ public class StepsFragment extends Fragment {
         }
     }
 
+    /**
+     *
+     */
     @Override
     public void onResume() {
         super.onResume();
@@ -176,6 +188,10 @@ public class StepsFragment extends Fragment {
         }
     }
 
+    /**
+     * @param videoView
+     * @param videoUrl
+     */
     private void setupPlayerView(final PlayerView videoView, final String videoUrl) {
         ExoPlayerViewManager.getInstance(videoUrl, getContext()).prepareExoPlayer(videoView);
         ExoPlayerViewManager.getInstance(videoUrl, getContext()).goToForeground();
@@ -191,6 +207,9 @@ public class StepsFragment extends Fragment {
         });
     }
 
+    /**
+     * @param currentState
+     */
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putSerializable(KEY_DESCRIPTION, description);

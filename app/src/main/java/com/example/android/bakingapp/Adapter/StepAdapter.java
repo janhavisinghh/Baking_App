@@ -33,6 +33,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         return new StepAdapter.StepViewHolder(view);
     }
 
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final StepAdapter.StepViewHolder holder, int position) {
         holder.bind(position, steps.get(position), listener);
@@ -46,6 +50,9 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
         return steps.size();
     }
 
+    /**
+     * @param steps
+     */
     public void setSteps(ArrayList<Steps> steps) {
         this.steps = steps;
         notifyDataSetChanged();
@@ -56,11 +63,18 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * @param itemView
+         */
         public StepViewHolder(View itemView) {
             super(itemView);
         }
 
+        /**
+         * @param item
+         * @param stepsItem
+         * @param listener
+         */
         public void bind(final int item, final Steps stepsItem, final DetailsAdapter.OnItemClickListener listener) {
             final String stepName = steps.get(item).getId();
             final String description = steps.get(item).getShortDescription();

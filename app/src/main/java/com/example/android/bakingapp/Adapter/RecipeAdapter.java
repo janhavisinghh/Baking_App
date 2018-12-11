@@ -36,6 +36,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         this.listener = listener;
     }
 
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public RecipeViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -48,6 +53,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return new RecipeViewHolder(view);
     }
 
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final RecipeViewHolder holder, int position) {
         holder.bind(position, recipes.get(position), listener);
@@ -61,6 +70,9 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         return recipes.size();
     }
 
+    /**
+     * @param recipes
+     */
     public void setRecipes(ArrayList<Recipe> recipes) {
         this.recipes = recipes;
         notifyDataSetChanged();
@@ -72,11 +84,18 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
 
     public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
-
+        /**
+         * @param itemView
+         */
         public RecipeViewHolder(View itemView) {
             super(itemView);
         }
 
+        /**
+         * @param item
+         * @param recipeItem
+         * @param listener
+         */
         public void bind(final int item, final Recipe recipeItem, final OnItemClickListener listener) {
             final String name = recipes.get(item).getName();
             final String servings = recipes.get(item).getServings();
@@ -85,6 +104,10 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             binding.servingsTv.setText(servings);
             binding.mainRecipeThumbnail.setImageResource(recipe_thumbnails.get(item));
             binding.mainRecipeThumbnail.setOnClickListener(new View.OnClickListener() {
+                /**
+                 *
+                 * @param v
+                 */
                 @Override
                 public void onClick(View v) {
                     listener.onItemClick(recipeItem);

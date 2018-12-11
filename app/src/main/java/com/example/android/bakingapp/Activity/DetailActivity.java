@@ -36,7 +36,9 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
     private boolean mTwoPane;
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
 
-
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +84,9 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
 
     }
 
+    /**
+     * @param position
+     */
     @Override
     public void OnStepSelected(int position) {
         Bundle bundle = new Bundle();
@@ -109,6 +114,9 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         }
     }
 
+    /**
+     * @param currentState
+     */
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         super.onSaveInstanceState(currentState);
@@ -116,13 +124,20 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         currentState.putSerializable(KEY_PARCEL_INGREDIENTS_LIST, ingredientsList);
     }
 
+    /**
+     * @param menu
+     * @return
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
         return true;
     }
 
-
+    /**
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();

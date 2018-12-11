@@ -25,7 +25,9 @@ public class StepActivity extends AppCompatActivity {
     private ArrayList<Steps> steps;
     private Boolean mTwoPane;
 
-
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,6 +73,10 @@ public class StepActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @param item
+     * @return
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int index = -1;

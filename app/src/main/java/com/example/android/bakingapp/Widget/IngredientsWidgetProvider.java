@@ -19,7 +19,13 @@ import static com.example.android.bakingapp.Adapter.RecipeAdapter.MY_PREFS;
 
 public class IngredientsWidgetProvider extends AppWidgetProvider {
 
-
+    /**
+     * @param context
+     * @param appWidgetManager
+     * @param appWidgetId
+     * @param recipeName
+     * @param ingredientsList
+     */
     public static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
                                        int appWidgetId, String recipeName, List<Ingredients> ingredientsList) {
 
@@ -38,6 +44,11 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         appWidgetManager.updateAppWidget(appWidgetId, views);
     }
 
+    /**
+     * @param context
+     * @param appWidgetManager
+     * @param appWidgetIds
+     */
     @Override
     public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
         // There may be multiple widgets active, so update all of them
@@ -52,11 +63,17 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         }
     }
 
+    /**
+     * @param context
+     */
     @Override
     public void onEnabled(Context context) {
         // Enter relevant functionality for when the first widget is created
     }
 
+    /**
+     * @param context
+     */
     @Override
     public void onDisabled(Context context) {
         // Enter relevant functionality for when the last widget is disabled

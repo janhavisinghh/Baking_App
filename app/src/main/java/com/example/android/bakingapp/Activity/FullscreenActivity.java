@@ -33,15 +33,6 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         }
     };
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
-        }
-    };
     ActivityFullscreenBinding binding;
     private PlayerView mPlayerView;
     private final Runnable mHidePart2Runnable = new Runnable() {
@@ -67,7 +58,19 @@ public class FullscreenActivity extends AppCompatActivity {
             hide();
         }
     };
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -124,6 +127,9 @@ public class FullscreenActivity extends AppCompatActivity {
         mExoPlayerViewManager.goToBackground();
     }
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -165,6 +171,9 @@ public class FullscreenActivity extends AppCompatActivity {
         mHideHandler.postDelayed(mShowPart2Runnable, UI_ANIMATION_DELAY);
     }
 
+    /**
+     * @param delayMillis
+     */
     private void delayedHide(int delayMillis) {
         mHideHandler.removeCallbacks(mHideRunnable);
         mHideHandler.postDelayed(mHideRunnable, delayMillis);

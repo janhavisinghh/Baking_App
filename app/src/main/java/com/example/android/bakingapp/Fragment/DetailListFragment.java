@@ -35,11 +35,17 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
     public DetailListFragment() {
     }
 
+    /**
+     * @param position
+     */
     @Override
     public void onItemClick(int position) {
         mCallback.OnStepSelected(position);
     }
 
+    /**
+     * @param context
+     */
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -51,6 +57,12 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
 
     }
 
+    /**
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState)
@@ -93,6 +105,9 @@ public class DetailListFragment extends Fragment implements DetailsAdapter.OnIte
 
     }
 
+    /**
+     * @param currentState
+     */
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         currentState.putSerializable(KEY_PARCEL_STEPS_LIST, steps);

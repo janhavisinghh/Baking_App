@@ -17,6 +17,11 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
     IngredientItemBinding binding;
     private Context context;
 
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public IngredientAdapter.IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -27,7 +32,10 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         return new IngredientAdapter.IngredientViewHolder(view);
     }
 
-
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final IngredientAdapter.IngredientViewHolder holder, int position) {
         holder.bind(position, ingredients.get(position));
@@ -41,17 +49,26 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         return ingredients.size();
     }
 
+    /**
+     * @param ingredients
+     */
     public void setSteps(ArrayList<Ingredients> ingredients) {
         this.ingredients = ingredients;
         notifyDataSetChanged();
     }
 
     public class IngredientViewHolder extends RecyclerView.ViewHolder {
-
+        /**
+         * @param itemView
+         */
         public IngredientViewHolder(View itemView) {
             super(itemView);
         }
 
+        /**
+         * @param item
+         * @param ingredientsItem
+         */
         public void bind(final int item, final Ingredients ingredientsItem) {
             final String ingredient_name = ingredients.get(item).getIngredient();
             final String ingredient_qty = ingredients.get(item).getQuantity();

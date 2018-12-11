@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Recipe> recipesList;
     private int mPosition = RecyclerView.NO_POSITION;
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,12 +89,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    /**
+     * @param outState
+     */
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putParcelableArrayList(KEY_PARCEL_RECIPE_LIST, recipesList);
         super.onSaveInstanceState(outState);
     }
 
+    /**
+     * @return
+     */
     @VisibleForTesting
     @NonNull
     public IdlingResource getIdlingResource() {

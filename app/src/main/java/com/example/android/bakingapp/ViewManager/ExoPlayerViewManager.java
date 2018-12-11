@@ -62,6 +62,11 @@ public class ExoPlayerViewManager {
         };
     }
 
+    /**
+     * @param videoUri
+     * @param context
+     * @return
+     */
     public static ExoPlayerViewManager getInstance(String videoUri, Context context) {
         ExoPlayerViewManager instance = sInstances.get(videoUri);
         if (instance == null) {
@@ -71,6 +76,9 @@ public class ExoPlayerViewManager {
         return instance;
     }
 
+    /**
+     * @param exoPlayerView
+     */
     public void prepareExoPlayer(PlayerView exoPlayerView) {
         if (mContext == null || exoPlayerView == null || mVideoUri == null) {
             return;

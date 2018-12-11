@@ -23,6 +23,11 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailVi
         this.listener = listener;
     }
 
+    /**
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @Override
     public DetailsAdapter.DetailViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         context = parent.getContext();
@@ -33,11 +38,18 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailVi
         return new DetailsAdapter.DetailViewHolder(view);
     }
 
+    /**
+     * @param holder
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final DetailsAdapter.DetailViewHolder holder, int position) {
         holder.bind(position, steps.get(position), listener);
     }
 
+    /**
+     * @return
+     */
     @Override
     public int getItemCount() {
         if (steps == null) {
@@ -46,21 +58,34 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailVi
         return steps.size();
     }
 
+    /**
+     * @param steps
+     */
     public void setSteps(ArrayList<Steps> steps) {
         this.steps = steps;
         notifyDataSetChanged();
     }
 
+    /**
+     *
+     */
     public interface OnItemClickListener {
         void onItemClick(int position);
     }
 
     public class DetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
+        /**
+         * @param itemView
+         */
         public DetailViewHolder(View itemView) {
             super(itemView);
         }
 
+        /**
+         * @param item
+         * @param stepsItem
+         * @param listener
+         */
         public void bind(final int item, final Steps stepsItem, final DetailsAdapter.OnItemClickListener listener) {
             final String stepName = steps.get(item).getId();
             final String description = steps.get(item).getShortDescription();
@@ -71,6 +96,9 @@ public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailVi
 
         }
 
+        /**
+         * @param v
+         */
         @Override
         public void onClick(View v) {
             listener.onItemClick(getAdapterPosition());
