@@ -10,18 +10,17 @@ Android App that will allow Udacity’s resident baker-in-chief, Miriam, to shar
  5. <a href="https://developer.android.com/guide/components/fragments">Fragments</a>
 ### Project ScreenShots:
 You can select a recipe from the recipe list:<br>
-<img src="https://github.com/janhavisinghh/Baking_App/blob/master/1.jpg" width="250" align="middle"><br><br>
+<img src="https://github.com/janhavisinghh/Baking_App/blob/master/1.jpg" width="250" align="middle"><br>
 You can see the details of recipe(ingredients and steps to make)<br>
 <p float="left">
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/2.jpg" width="250">
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/3.jpg" width="250">
 </p>
 <br>
-<br>
-The details screen in tablet view:
+The details screen in tablet view:<br>
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/tab.png" width="600">
-<br><br>
-You can click on the menu item at the top right corner of the details screen to add the ingredients in your homescreen widgets.
+<br>
+You can click on the menu item at the top right corner of the details screen to add the ingredients in your homescreen widgets.<br>
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/6.jpg" width="250">
 
 
