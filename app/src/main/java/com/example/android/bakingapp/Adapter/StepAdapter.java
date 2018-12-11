@@ -5,9 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.DetailsCardBinding;
@@ -16,16 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder> {
-    public List<Steps> steps;
-
-    private Context context;
-    DetailsCardBinding binding;
-
     private final DetailsAdapter.OnItemClickListener listener;
-
-    public interface OnItemClickListener {
-        void onItemClick(Steps position);
-    }
+    public List<Steps> steps;
+    DetailsCardBinding binding;
+    private Context context;
 
     public StepAdapter(DetailsAdapter.OnItemClickListener listener) {
         this.listener = listener;
@@ -40,7 +32,6 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
 
         return new StepAdapter.StepViewHolder(view);
     }
-
 
     @Override
     public void onBindViewHolder(final StepAdapter.StepViewHolder holder, int position) {
@@ -58,6 +49,10 @@ public class StepAdapter extends RecyclerView.Adapter<StepAdapter.StepViewHolder
     public void setSteps(ArrayList<Steps> steps) {
         this.steps = steps;
         notifyDataSetChanged();
+    }
+
+    public interface OnItemClickListener {
+        void onItemClick(Steps position);
     }
 
     public class StepViewHolder extends RecyclerView.ViewHolder {

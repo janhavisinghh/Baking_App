@@ -67,19 +67,21 @@ public class Recipe implements Parcelable {
 
         return ingredients;
     }
+
     public ArrayList<Steps> getSteps() {
 
         return steps;
     }
+
     public String getServings() {
 
         return servings;
     }
+
     public String getImage() {
 
         return image;
     }
-
 
 
     @Override

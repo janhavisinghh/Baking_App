@@ -2,11 +2,11 @@ package com.example.android.bakingapp.Activity;
 
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.test.espresso.IdlingResource;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -28,32 +28,29 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
 
-    private RecipeAdapter adapter;
-    private static final int SPAN_COUNT = 2;
-    private ArrayList<Recipe> recipesList;
-    private static final String KEY_PARCEL_RECIPE_LIST = "recipes_list";
-    private int mPosition = RecyclerView.NO_POSITION;
-    ActivityMainBinding binding;
     public static final String KEY_INGREDIENT = "ingredient";
+    private static final int SPAN_COUNT = 2;
+    private static final String KEY_PARCEL_RECIPE_LIST = "recipes_list";
+    ActivityMainBinding binding;
     RecipesIdlingResource idlingResource;
-
-
+    private RecipeAdapter adapter;
+    private ArrayList<Recipe> recipesList;
+    private int mPosition = RecyclerView.NO_POSITION;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        if(idlingResource!=null)
+        if (idlingResource != null)
             idlingResource.setIdleState(false);
 
 
         recipesList = new ArrayList<>();
 
-        if(MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT){
+        if (MainActivity.this.getResources().getConfiguration().orientation == Configuration.ORIENTATION_PORTRAIT) {
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        }
-        else{
+        } else {
             binding.recyclerView.setLayoutManager(new GridLayoutManager(this, SPAN_COUNT));
         }
         binding.recyclerView.setHasFixedSize(true);
@@ -64,21 +61,19 @@ public class MainActivity extends AppCompatActivity {
         });
         binding.recyclerView.setAdapter(adapter);
         getIdlingResource();
-        if(idlingResource!=null)
+        if (idlingResource != null)
             idlingResource.setIdleState(false);
 
         GetDataService service = RetrofitClientInstance.getRetrofitInstance().create(GetDataService.class);
 
         Call<ArrayList<Recipe>> call = service.getAllRecipe();
 
-        call.enqueue(new Callback<ArrayList<Recipe>>()
-        {
+        call.enqueue(new Callback<ArrayList<Recipe>>() {
             @Override
-            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response)
-            {
+            public void onResponse(Call<ArrayList<Recipe>> call, Response<ArrayList<Recipe>> response) {
                 recipesList = response.body();
                 adapter.setRecipes(recipesList);
-                if(idlingResource!=null)
+                if (idlingResource != null)
                     idlingResource.setIdleState(true);
             }
 
@@ -89,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-
     }
 
     @Override
@@ -97,6 +91,7 @@ public class MainActivity extends AppCompatActivity {
         outState.putParcelableArrayList(KEY_PARCEL_RECIPE_LIST, recipesList);
         super.onSaveInstanceState(outState);
     }
+
     @VisibleForTesting
     @NonNull
     public IdlingResource getIdlingResource() {

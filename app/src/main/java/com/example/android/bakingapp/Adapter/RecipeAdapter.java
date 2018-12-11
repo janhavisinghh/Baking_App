@@ -8,11 +8,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
-import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.Activity.DetailActivity;
+import com.example.android.bakingapp.Data.Recipe;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.RecipeCardBinding;
 import com.google.gson.Gson;
@@ -21,23 +19,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeViewHolder> {
-    public List<Recipe> recipes = new ArrayList<Recipe>();
-    private Context context;
-    private SharedPreferences sharedPreferences;
-    RecipeCardBinding binding;
     public static final String MY_PREFS = "MyPrefs";
-    private static final List<Integer> recipe_thumbnails  = new ArrayList<Integer>() {{
+    private static final List<Integer> recipe_thumbnails = new ArrayList<Integer>() {{
         add(R.drawable.nutella_brownie_);
         add(R.drawable.brownie);
         add(R.drawable.yellow_cake);
         add(R.drawable.cheese_cake);
     }};
-
     private final OnItemClickListener listener;
-
-    public interface OnItemClickListener {
-        void onItemClick(Recipe position);
-    }
+    public List<Recipe> recipes = new ArrayList<Recipe>();
+    RecipeCardBinding binding;
+    private Context context;
+    private SharedPreferences sharedPreferences;
 
     public RecipeAdapter(OnItemClickListener listener) {
         this.listener = listener;
@@ -73,8 +66,11 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
         notifyDataSetChanged();
     }
 
-    public class RecipeViewHolder extends RecyclerView.ViewHolder {
+    public interface OnItemClickListener {
+        void onItemClick(Recipe position);
+    }
 
+    public class RecipeViewHolder extends RecyclerView.ViewHolder {
 
 
         public RecipeViewHolder(View itemView) {
@@ -89,7 +85,8 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
             binding.servingsTv.setText(servings);
             binding.mainRecipeThumbnail.setImageResource(recipe_thumbnails.get(item));
             binding.mainRecipeThumbnail.setOnClickListener(new View.OnClickListener() {
-                @Override public void onClick(View v) {
+                @Override
+                public void onClick(View v) {
                     listener.onItemClick(recipeItem);
                     Bundle bundle = new Bundle();
                     bundle.putSerializable("steps", recipes.get(item).getSteps());
@@ -97,7 +94,7 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.RecipeView
                     bundle.putString("name", name);
                     Intent intent = new Intent(context, DetailActivity.class);
                     intent.putExtra("bundle", bundle);
-                    intent.putExtra("position",item);
+                    intent.putExtra("position", item);
                     Gson gson = new Gson();
                     String resultJson = gson.toJson(recipes.get(item));
                     sharedPreferences.edit().putString("result", resultJson).apply();

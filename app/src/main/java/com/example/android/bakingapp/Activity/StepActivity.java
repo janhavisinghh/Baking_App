@@ -2,27 +2,26 @@ package com.example.android.bakingapp.Activity;
 
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.net.Uri;
+import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.ActivityStepBinding;
+
 import java.util.ArrayList;
 
 public class StepActivity extends AppCompatActivity {
+    ActivityStepBinding binding;
     private String step_id;
     private String short_desc;
     private String description;
     private String video_url;
     private String thumbnail_url;
     private int position;
-    ActivityStepBinding binding;
     private ArrayList<Steps> steps;
     private Boolean mTwoPane;
 
@@ -33,19 +32,19 @@ public class StepActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_step);
 
 
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
-        step_id = (String)args.getSerializable("step_id");
-        short_desc = (String)args.getSerializable("short_desc");
-        description = (String)args.getSerializable("description");
-        video_url = (String)args.getSerializable("video_url");
+        step_id = (String) args.getSerializable("step_id");
+        short_desc = (String) args.getSerializable("short_desc");
+        description = (String) args.getSerializable("description");
+        video_url = (String) args.getSerializable("video_url");
         position = args.getInt("position");
-        thumbnail_url = (String)args.getSerializable("thumbnail_url");
+        thumbnail_url = (String) args.getSerializable("thumbnail_url");
         steps = (ArrayList<Steps>) args.getSerializable("stepsList");
         mTwoPane = args.getBoolean("mtwoPane");
         StepsFragment stepsFragment = new StepsFragment();
@@ -66,9 +65,8 @@ public class StepActivity extends AppCompatActivity {
         bundle.putBoolean("mtwoPane", mTwoPane);
         stepsFragment.setArguments(bundle);
         fragmentManager.beginTransaction()
-                .add(R.id.step_activity,stepsFragment)
+                .add(R.id.step_activity, stepsFragment)
                 .commit();
-
 
 
     }
@@ -77,7 +75,7 @@ public class StepActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int index = -1;
         int itemThatWasClickedId = item.getItemId();
-        if(itemThatWasClickedId== android.R.id.home){
+        if (itemThatWasClickedId == android.R.id.home) {
             finish();
         }
         return super.onOptionsItemSelected(item);

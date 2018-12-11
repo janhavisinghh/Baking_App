@@ -1,40 +1,41 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-<FrameLayout
-android:id="@+id/app_widget_layout"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="#EFEBE9"
-android:padding="@dimen/widget_margin">
 
-<LinearLayout
-    android:id="@+id/show_ingredient"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/recipe_name_tv"
+    <FrameLayout
+        android:id="@+id/app_widget_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/colorPrimaryDark"
-        android:padding="8dp"
-        android:textColor="@android:color/white"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        tools:text="Nutella Pie Ingredient" />
+        android:layout_height="match_parent"
+        android:background="#EFEBE9"
+        android:padding="@dimen/widget_margin">
 
-    <LinearLayout
-        android:id="@+id/ingredients_container"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:listSelector="@android:color/transparent" />
+        <LinearLayout
+            android:id="@+id/show_ingredient"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-</LinearLayout>
+            <TextView
+                android:id="@+id/recipe_name_tv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorPrimaryDark"
+                android:padding="8dp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                tools:text="Nutella Pie Ingredient" />
 
-</FrameLayout>
+            <LinearLayout
+                android:id="@+id/ingredients_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="8dp"
+                android:layout_marginRight="8dp"
+                android:listSelector="@android:color/transparent"
+                android:orientation="vertical" />
+
+        </LinearLayout>
+
+    </FrameLayout>
 </layout>

@@ -29,6 +29,7 @@ public class RecipesIdlingResource implements IdlingResource {
 
     /**
      * Sets the new idle state, if isIdleNow is true, it pings the {@link ResourceCallback}.
+     *
      * @param isIdleNow false if there are pending operations, true if idle.
      */
     public void setIdleState(boolean isIdleNow) {

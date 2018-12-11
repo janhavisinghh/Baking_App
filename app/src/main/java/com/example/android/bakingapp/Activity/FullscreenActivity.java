@@ -12,18 +12,16 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 
-import com.example.android.bakingapp.ViewManager.ExoPlayerViewManager;
 import com.example.android.bakingapp.Fragment.StepsFragment;
 import com.example.android.bakingapp.R;
+import com.example.android.bakingapp.ViewManager.ExoPlayerViewManager;
 import com.example.android.bakingapp.databinding.ActivityFullscreenBinding;
 import com.google.android.exoplayer2.ui.PlayerView;
 
 public class FullscreenActivity extends AppCompatActivity {
 
     private static final boolean AUTO_HIDE = true;
-    ActivityFullscreenBinding binding;
     private static final int AUTO_HIDE_DELAY_MILLIS = 3000;
-
     private static final int UI_ANIMATION_DELAY = 300;
     private final Handler mHideHandler = new Handler();
     private final Runnable mShowPart2Runnable = new Runnable() {
@@ -35,6 +33,16 @@ public class FullscreenActivity extends AppCompatActivity {
             }
         }
     };
+    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            if (AUTO_HIDE) {
+                delayedHide(AUTO_HIDE_DELAY_MILLIS);
+            }
+            return false;
+        }
+    };
+    ActivityFullscreenBinding binding;
     private PlayerView mPlayerView;
     private final Runnable mHidePart2Runnable = new Runnable() {
         @SuppressLint("InlinedApi")
@@ -57,15 +65,6 @@ public class FullscreenActivity extends AppCompatActivity {
         @Override
         public void run() {
             hide();
-        }
-    };
-    private final View.OnTouchListener mDelayHideTouchListener = new View.OnTouchListener() {
-        @Override
-        public boolean onTouch(View view, MotionEvent motionEvent) {
-            if (AUTO_HIDE) {
-                delayedHide(AUTO_HIDE_DELAY_MILLIS);
-            }
-            return false;
         }
     };
 

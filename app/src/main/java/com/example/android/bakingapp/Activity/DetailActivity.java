@@ -1,16 +1,14 @@
 package com.example.android.bakingapp.Activity;
 
-import android.app.PendingIntent;
 import android.appwidget.AppWidgetManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.v4.app.FragmentManager;
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.RemoteViews;
 import android.widget.Toast;
 
 import com.example.android.bakingapp.Data.Ingredients;
@@ -24,35 +22,31 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
-import javax.xml.transform.Result;
-
 import static com.example.android.bakingapp.Adapter.RecipeAdapter.MY_PREFS;
 
 public class DetailActivity extends AppCompatActivity implements DetailListFragment.OnStepClickListener {
+    public static final String SHARED_PREFS = "prefs";
+    public static final String KEY_BUTTON_TEXT = "keyButtonText";
+    private static final String KEY_PARCEL_INGREDIENTS_LIST = "ingredients_list";
+    private static final String KEY_PARCEL_STEPS_LIST = "steps_list";
     private ArrayList<Steps> stepsList;
     private ArrayList<Ingredients> ingredientsList;
     private int position;
-    private static final String KEY_PARCEL_INGREDIENTS_LIST = "ingredients_list";
-    private static final String KEY_PARCEL_STEPS_LIST = "steps_list";
     private String name;
     private boolean mTwoPane;
-    public static final String SHARED_PREFS = "prefs";
-    public static final String KEY_BUTTON_TEXT = "keyButtonText";
     private int appWidgetId = AppWidgetManager.INVALID_APPWIDGET_ID;
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        if(findViewById(R.id.step_activity)!=null){
+        if (findViewById(R.id.step_activity) != null) {
             mTwoPane = true;
-        }
-        else mTwoPane=false;
+        } else mTwoPane = false;
 
 
-        if(getSupportActionBar()!=null){
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
@@ -61,13 +55,14 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         ingredientsList = new ArrayList<Ingredients>();
         Intent intent = getIntent();
         Bundle args = intent.getBundleExtra("bundle");
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             stepsList = (ArrayList<Steps>) savedInstanceState.getSerializable(KEY_PARCEL_STEPS_LIST);
             ingredientsList = (ArrayList<Ingredients>) savedInstanceState.getSerializable(KEY_PARCEL_INGREDIENTS_LIST);
         }
-        if(savedInstanceState==null){
+        if (savedInstanceState == null) {
             stepsList = (ArrayList<Steps>) args.getSerializable("steps");
-        ingredientsList = (ArrayList<Ingredients>) args.getSerializable("ingredients");}
+            ingredientsList = (ArrayList<Ingredients>) args.getSerializable("ingredients");
+        }
         position = getIntent().getExtras().getInt("position");
         name = (String) args.getString("name");
 
@@ -88,7 +83,7 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
     }
 
     @Override
-    public void OnStepSelected (int position){
+    public void OnStepSelected(int position) {
         Bundle bundle = new Bundle();
         bundle.putSerializable("step_id", stepsList.get(position).getId());
         bundle.putSerializable("short_desc", stepsList.get(position).getShortDescription());
@@ -99,7 +94,7 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
         bundle.putBoolean("mtwoPane", mTwoPane);
         bundle.putInt("position", position);
 
-        if(mTwoPane) {
+        if (mTwoPane) {
             StepsFragment stepsFragment = new StepsFragment();
             stepsFragment.setArguments(bundle);
             getSupportFragmentManager().beginTransaction()
@@ -107,19 +102,20 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
                     .commit();
 
 
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, StepActivity.class);
             intent.putExtra("bundle", bundle);
             this.startActivity(intent);
         }
     }
+
     @Override
     public void onSaveInstanceState(Bundle currentState) {
         super.onSaveInstanceState(currentState);
         currentState.putSerializable(KEY_PARCEL_STEPS_LIST, stepsList);
         currentState.putSerializable(KEY_PARCEL_INGREDIENTS_LIST, ingredientsList);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
@@ -127,20 +123,19 @@ public class DetailActivity extends AppCompatActivity implements DetailListFragm
     }
 
 
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int itemId = item.getItemId();
         switch (itemId) {
             case R.id.action_save:
-                    SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
-                    Gson gson = new Gson();
-                    Recipe recipe = gson.fromJson(sharedPreferences.getString("result",null), Recipe.class);
-                    AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
-                    Bundle bundle = new Bundle();
-                    int appWidgetId = bundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
-                    IngredientsWidgetProvider.updateAppWidget(getApplicationContext(),appWidgetManager,appWidgetId,recipe.getName(), recipe.getIngredients());
-                    Toast.makeText(getApplicationContext(), recipe.getName() +" Added!", Toast.LENGTH_SHORT).show();
+                SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences(MY_PREFS, Context.MODE_PRIVATE);
+                Gson gson = new Gson();
+                Recipe recipe = gson.fromJson(sharedPreferences.getString("result", null), Recipe.class);
+                AppWidgetManager appWidgetManager = AppWidgetManager.getInstance(getApplicationContext());
+                Bundle bundle = new Bundle();
+                int appWidgetId = bundle.getInt(AppWidgetManager.EXTRA_APPWIDGET_ID, AppWidgetManager.INVALID_APPWIDGET_ID);
+                IngredientsWidgetProvider.updateAppWidget(getApplicationContext(), appWidgetManager, appWidgetId, recipe.getName(), recipe.getIngredients());
+                Toast.makeText(getApplicationContext(), recipe.getName() + " Added!", Toast.LENGTH_SHORT).show();
                 return true;
             case android.R.id.home:
                 finish();

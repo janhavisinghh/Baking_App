@@ -1,17 +1,11 @@
 package com.example.android.bakingapp.Adapter;
 
 import android.content.Context;
-import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.android.bakingapp.Activity.DetailActivity;
-import com.example.android.bakingapp.Data.Ingredients;
 import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.DetailsCardBinding;
@@ -19,17 +13,11 @@ import com.example.android.bakingapp.databinding.DetailsCardBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailViewHolder> {
-    public List<Steps> steps;
-
-    private Context context;
-    DetailsCardBinding binding;
-
+public class DetailsAdapter extends RecyclerView.Adapter<DetailsAdapter.DetailViewHolder> {
     private final DetailsAdapter.OnItemClickListener listener;
-
-    public interface OnItemClickListener {
-        void onItemClick(int position);
-    }
+    public List<Steps> steps;
+    DetailsCardBinding binding;
+    private Context context;
 
     public DetailsAdapter(DetailsAdapter.OnItemClickListener listener) {
         this.listener = listener;
@@ -44,6 +32,7 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
 
         return new DetailsAdapter.DetailViewHolder(view);
     }
+
     @Override
     public void onBindViewHolder(final DetailsAdapter.DetailViewHolder holder, int position) {
         holder.bind(position, steps.get(position), listener);
@@ -62,6 +51,10 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
         notifyDataSetChanged();
     }
 
+    public interface OnItemClickListener {
+        void onItemClick(int position);
+    }
+
     public class DetailViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public DetailViewHolder(View itemView) {
@@ -71,7 +64,7 @@ public class DetailsAdapter  extends RecyclerView.Adapter<DetailsAdapter.DetailV
         public void bind(final int item, final Steps stepsItem, final DetailsAdapter.OnItemClickListener listener) {
             final String stepName = steps.get(item).getId();
             final String description = steps.get(item).getShortDescription();
-            binding.headingTv.setText("Step " +stepName);
+            binding.headingTv.setText("Step " + stepName);
             binding.shortDescriptionTv.setText(description);
 
             itemView.setOnClickListener(this);

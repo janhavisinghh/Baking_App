@@ -5,21 +5,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.example.android.bakingapp.Data.Ingredients;
-import com.example.android.bakingapp.Data.Steps;
 import com.example.android.bakingapp.R;
 import com.example.android.bakingapp.databinding.IngredientItemBinding;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.IngredientViewHolder> {
     public ArrayList<Ingredients> ingredients;
-
-    private Context context;
     IngredientItemBinding binding;
+    private Context context;
 
     @Override
     public IngredientAdapter.IngredientViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -55,12 +51,13 @@ public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.In
         public IngredientViewHolder(View itemView) {
             super(itemView);
         }
+
         public void bind(final int item, final Ingredients ingredientsItem) {
             final String ingredient_name = ingredients.get(item).getIngredient();
             final String ingredient_qty = ingredients.get(item).getQuantity();
             final String ingredient_measure = ingredients.get(item).getMeasure();
             binding.ingredientName.setText(ingredient_name);
-            binding.ingredientQuantity.setText(ingredient_qty +" "+ingredient_measure);
+            binding.ingredientQuantity.setText(ingredient_qty + " " + ingredient_measure);
 
         }
     }
