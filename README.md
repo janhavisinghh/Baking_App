@@ -8,6 +8,7 @@ Android App that will allow Udacity’s resident baker-in-chief, Miriam, to shar
  3. <a href="https://github.com/google/ExoPlayer">ExoPlayer</a>
  4. <a href="https://developer.android.com/training/testing/espresso/">Espresso</a>
  5. <a href="https://developer.android.com/guide/components/fragments">Fragments</a>
+ 6. <a href="https://developer.android.com/training/data-storage/shared-preferences">Shared Preferences</a>
 ### Project ScreenShots:
 You can select a recipe from the recipe list:<br>
 <img src="https://github.com/janhavisinghh/Baking_App/blob/master/1.jpg" width="250" align="middle"><br>
